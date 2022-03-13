@@ -1,18 +1,22 @@
 class Solution:
     def digArtifacts(self, n: int, artifacts: List[List[int]], dig: List[List[int]]) -> int:
-        seen=set()
-        dp=[[-1 for i in range(0,n)] for j in range(0,n)]
-        index=0
-        for x1,y1,x2,y2 in artifacts:
-            for i in range(x1,x2+1):
-                for j in range(y1,y2+1):
-                    dp[i][j]=index
-            index+=1
-        ans=set()
-        for i,j in dig:
-            dp[i][j]=-1
-        for i in range(0,n):
-            for j in range(0,n):
-                if dp[i][j]!=-1 and dp[i][j] not in ans:
-                    ans.add(dp[i][j])
-        return len(artifacts)-len(ans)
+        
+        mask = [[0]*n for _ in range(n)]
+
+        for site in dig:
+            mask[site[0]][site[1]]=1
+            
+        count = 0
+        for artifact in artifacts:
+            flag = True
+            for i in range(artifact[0],artifact[2]+1):
+                for j in range(artifact[1],artifact[3]+1):
+
+                    if mask[i][j]==0:
+                        flag =False
+                        break
+                if flag==False:
+                    break
+            if flag:
+                count+=1
+        return count   
