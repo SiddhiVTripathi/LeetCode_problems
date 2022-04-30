@@ -15,8 +15,7 @@ class Solution:
             for j in range(C):
                 if j==0 or j==C-1 or i==0 or i==R-1:
                     if grid[i][j]==0:
-                        dfs(i,j)
-        print(grid)                
+                        dfs(i,j)             
         for i in range(R):
             for j in range(C):
                 if grid[i][j]==0:
